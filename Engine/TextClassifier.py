@@ -11,7 +11,6 @@ class TextClassifier:
         pass
 
     def classify(self, text):
-        print("Classify", text)
         text = text.lower()
         if u'песн' in text \
            or u'музык' in text \

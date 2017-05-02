@@ -2,6 +2,7 @@
 import numpy as np
 from CONFIG import SONGS
 import os
+import logging
 
 class Bot:
 
@@ -11,6 +12,7 @@ class Bot:
         self.chat_id = chat_id
 
     def bite(self, intended=0):
+
         self.bites += 1
 
         if intended == 0:
@@ -25,6 +27,8 @@ class Bot:
                 ])
         else:
             base = "Я тебя не понял. За это - новый укус!"
+
+        logging.error("Bite. {}. Итого: {}".format(base, self.bites))
 
         afterall = "Итого, по прибытию Айжан получит"
 
@@ -49,7 +53,8 @@ class Bot:
         else:
             song = np.random.choice(SONGS)
 
-        self.bot.sendMessage(chat_id=self.chat_id, text="{}. Наслаждайся!".format(song))
+        logging.error("Song. {}".format(song))
+        self.bot.sendMessage(chat_id=self.chat_id, text="Песенку? {}. Наслаждайся!".format(song))
 
 
     def miss(self, intended=0):
@@ -60,7 +65,10 @@ class Bot:
                     "Давно я тебе не говорил, как соскучился, неправда ли?",
                     "Айжан, я так скучаю! А ты?",
                     "Здесь совершенно некого кусать.",
-                    "Возвращайся скорее! Тут все краски без тебя потеряли цвет!"
+                    "Возвращайся скорее! Тут все краски без тебя потеряли цвет!",
+                    "Ты так красиво одета! И совсем не жирная даже!",
+                    "Это у тебя во рту вода или тебя так комары покусали?",
+                    "Айжан, ты самая нестрашная из всех, кого я встречал!"
                     ]
         else:
 
@@ -70,8 +78,8 @@ class Bot:
                 "Знаешь чем я сейчас занимаюсь? Сижу и скучаю по Вас!",
             ]
 
-
         text = np.random.choice(base)
+        logging.error("Miss. {}".format(text))
 
         if np.random.rand() > 0.5:
             photo_id = np.random.choice([1,2,3,4,5])
@@ -84,6 +92,7 @@ class Bot:
 
 
     def scary(self):
+        logging.error("Scary.")
         message = self.bot.sendPhoto(
             photo=open(os.getcwd() + os.sep + 'Engine' + os.sep + 'Photos/scary.jpg', 'rb'),
             caption="Буууууууу",
